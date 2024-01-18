@@ -25,7 +25,7 @@ function moveOutputPlugin() {
 export default defineConfig({
   // base 的寫法：
   // base: '/Repository 的名稱/'
-  base: '/web-layout-training-vite/',
+  base: '/test/',
   plugins: [
     liveReload(['./layout/**/*.ejs', './pages/**/*.ejs', './pages/**/*.html']),
     ViteEjsPlugin(),
@@ -45,6 +45,15 @@ export default defineConfig({
             fileURLToPath(new URL(file, import.meta.url)),
           ])
       ),
+      output: {
+        // 自定義資源檔案名稱和路徑
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name.endsWith('.jpg')) {
+            return 'images/[name]-[hash][extname]';
+          }
+          return 'assets/[name]-[hash][extname]';
+        }
+      }
     },
     outDir: 'dist',
   },
